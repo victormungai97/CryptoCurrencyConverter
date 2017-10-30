@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/menu_linear_layout"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:padding="5dp"
+    android:background="#FAFAFA"
+    tools:showIn="@layout/fragment_crypto_currency">
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:src="@drawable/ic_home_black_24dp"
+        android:padding="5dp"
+        android:contentDescription="@string/home_description"/>
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:src="@drawable/icons_currency"
+        android:padding="5dp"
+        android:contentDescription="@string/currency_description"/>
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:src="@drawable/icons_cryptocurrency"
+        android:padding="5dp"
+        android:contentDescription="@string/currency_description"/>
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:src="@drawable/bitcoin_to_money"
+        android:padding="5dp"
+        android:contentDescription="@string/exchange_rate"/>
+
+</LinearLayout>

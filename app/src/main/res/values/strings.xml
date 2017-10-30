@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">BitConverter</string>
+    <string name="currency_description">This is a currency</string>
+    <string name="menu_description">This is a overflow menu button</string>
+    <string name="backdrop_title">Currency Conversion</string>
+    <string name="backdrop_subtitle">Let\'s convert currencies!</string>
+    <string name="backdrop_description">This is the backdrop</string>
+    <string name="exchange_rate">Exchange Rate</string>
+    <string name="exchange_description">Exchange between cryptocurrency and currency </string>
+    <string name="home_description">This is the home page</string>
+    <string name="arrow_description">Convert to </string>
+    <string name="currency_inversion">Invert currencies</string>
+</resources>
