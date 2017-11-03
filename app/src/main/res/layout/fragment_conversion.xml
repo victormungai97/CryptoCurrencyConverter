@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- This provides the interface for
+  conversion btn currencies -->
+
 <android.support.design.widget.CoordinatorLayout
 xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -11,82 +15,86 @@ xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_gravity="center"
         android:gravity="center">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:id="@+id/conversion_linear_layout1"
             android:orientation="vertical">
 
             <EditText
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
-                android:layout_marginBottom="10dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/conversion_side_margin"
+                android:layout_marginRight="@dimen/conversion_side_margin"
+                android:layout_marginBottom="@dimen/conversion_bottom_margin"
                 android:id="@+id/conversion_currency1_edit_view"
                 android:background="@drawable/square_background"
-                android:inputType="numberDecimal"/>
+                android:inputType="numberDecimal"
+                android:hint="@string/currency1"/>
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/conversion_currency1_edit_view"
+                android:background="@drawable/rounded_layout_bg"
+                android:padding="@dimen/conversion_text_view1_padding"
                 android:layout_gravity="center"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
+                android:layout_marginLeft="@dimen/conversion_side_margin"
+                android:layout_marginRight="@dimen/conversion_side_margin"
                 android:labelFor="@id/conversion_currency1_edit_view"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:textAllCaps="true"
                 android:textAppearance="?attr/textAppearanceLargePopupMenu"
                 android:id="@+id/conversion_currency1_text_view"/>
 
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/conversion_arrow"
-            android:layout_margin="10dp"
             android:layout_gravity="center"
             android:src="@drawable/arrow_right"
             android:contentDescription="@string/arrow_description"/>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <EditText
                 android:id="@+id/conversion_currency2_edit_view"
                 android:layout_width="wrap_content"
                 android:enabled="false"
-                android:layout_height="0dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
-                android:layout_marginBottom="10dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/conversion_side_margin"
+                android:layout_marginRight="@dimen/conversion_side_margin"
+                android:layout_marginBottom="@dimen/conversion_bottom_margin"
                 android:background="@drawable/square_background"
-                android:inputType="numberDecimal"/>
+                android:inputType="numberDecimal"
+                android:hint="@string/currency2"/>
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_layout_bg"
+                android:padding="@dimen/conversion_text_view2_padding"
+                android:textAlignment="center"
+                android:layout_below="@id/conversion_currency2_edit_view"
+                android:layout_marginLeft="@dimen/conversion_side_margin"
+                android:layout_marginRight="@dimen/conversion_side_margin"
                 android:layout_gravity="center"
                 android:labelFor="@id/conversion_currency2_edit_view"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:textAllCaps="true"
                 android:textAppearance="?attr/textAppearanceLargePopupMenu"
                 android:id="@+id/conversion_currency2_text_view"
                 />
 
-        </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 

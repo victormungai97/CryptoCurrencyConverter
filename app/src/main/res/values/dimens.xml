@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="dialog_internet_text_size">16sp</dimen>
+    <dimen name="dialog_internet_title_text_size">20sp</dimen>
+    <dimen name="dialog_internet_button_text_size">18sp</dimen>
+    <dimen name="dialog_internet_text_padding">16dp</dimen>
+    <dimen name="dialog_internet_drawable_spacing">4dp</dimen>
+    <dimen name="dialog_internet_button_width">0dp</dimen>
+    <dimen name="dialog_base_currency_title_text_view_margin">16dp</dimen>
+    <dimen name="dialog_base_currency_spinner_height">0dp</dimen>
+    <dimen name="dialog_base_currency_spinner_margin">14dp</dimen>
+    <dimen name="dialog_base_currency_button_margin">20dp</dimen>
+    <dimen name="conversion_side_margin">50dp</dimen>
+    <dimen name="conversion_bottom_margin">10dp</dimen>
+    <dimen name="conversion_text_view1_padding">10dp</dimen>
+    <dimen name="conversion_text_view2_padding">5dp</dimen>
+    <dimen name="backdrop_title">30sp</dimen>
+    <dimen name="backdrop_subtitle">18sp</dimen>
+    <dimen name="detail_backdrop_height">250dp</dimen>
+    <dimen name="item_offset">10dp</dimen>
+    <dimen name="expanded_title_margin_start">48dp</dimen>
+    <dimen name="expanded_title_margin_end">64dp</dimen>
+    <dimen name="card_margin">5dp</dimen>
+    <dimen name="card_corner_radius">3dp</dimen>
+    <dimen name="card_currency_image_height">200dp</dimen>
+    <dimen name="card_currency_image_margin">5dp</dimen>
+    <dimen name="card_currency_relative_layout1_margin">10dp</dimen>
+    <dimen name="card_currency_title_view_padding">10dp</dimen>
+    <dimen name="card_currency_overflow_width">20dp</dimen>
+    <dimen name="card_currency_overflow_height">30dp</dimen>
+    <dimen name="card_currency_overflow_padding">7.5dp</dimen>
+    <dimen name="row_spacing">10dp</dimen>
+
+</resources>

@@ -3,7 +3,7 @@ package com.example.cryptocurrencyconverter.others;
 import com.example.cryptocurrencyconverter.R;
 
 /**
- * Created by victor on 10/28/17.
+ * Created by victor mungai on 10/28/17.
  * This class is used to hold constants and extras
  */
 
@@ -16,7 +16,6 @@ public class Others {
                 R.drawable.euro, // Euro
                 R.drawable.pound_sterling, // British Pound Sterling
                 R.drawable.swiss_franc, // Swiss Franc
-                R.drawable.dinar, // Dinar, used in 9 countries
                 R.drawable.indian_rupee, // Indian rupee
                 R.drawable.japanese_yen, // Japanese yen
                 R.drawable.australian_dollar, // Australian dollar
@@ -30,8 +29,10 @@ public class Others {
                 R.drawable.singapore_dollar, // Singapore dollar
                 R.drawable.bahraini_dinar, // Bahraini dinar
                 R.drawable.hong_kong_dollar, // Hong Kong dollar
+                R.drawable.turkish_lira, // Turkish Lira
                 R.drawable.brazilian_real, // Brazilian real
                 R.drawable.nigerian_naira, // Nigerian naira
+                R.drawable.ic_add_currency, // add new currency
         };
 
         // array of resIds of icons of currencies
@@ -53,16 +54,26 @@ public class Others {
                 R.drawable.icons_singapore_dollar, // 14
                 R.drawable.icons_bahraini_dinar, // 15
                 R.drawable.icons_hong_kong_dollar, // 16
-                R.drawable.icons_brazilian_real, // 17
-                R.drawable.icons_naira, // 18
+                R.drawable.icons_turkish_lira, // 17
+                R.drawable.icons_brazilian_real, // 18
+                R.drawable.icons_naira, // 19
         };
     }
 
     public class Constants {
         public static final String ERROR = "ERROR";
+        public static final String TAG = "TAG";
         public static final String LIST_STATE_KEY = "state of list";
         public static final String FIRST_CURRENCY = "FIRST CURRENCY";
         public static final String SECOND_CURRENCY = "SECOND CURRENCY";
         public static final String EXCHANGE_RATE = "EXCHANGE RATE";
+        static final int REQUEST_EXTERNAL_STORAGE = 2341;
+        static final int REQUEST_MOBILE_NETWORK = 18395;
+        public static final int REQUEST_CURRENCY = 2710;
+        public static final String EXTRA_CURRENCY = "com.example.cryptocurrencyconverter.currencies";
+        public static final String INTERNET_PICKER = "INTERNET_PICKER";
+        public static final String LIST = "list";
+        public static final String CRYPTO_SYMBOL = "crypto_symbol";
+        public static final String CURRENCY_SYMBOL = "currency_symbol";
     }
 }

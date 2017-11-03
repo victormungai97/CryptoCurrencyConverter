@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<!-- This layout provides the recycler view that
+  will hold the various currencies plus a collapsible
+  toolbar -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/fragment_relative_layout">
+    android:id="@+id/fragment_parent_layout"
+    android:orientation="vertical">
 
     <android.support.design.widget.CoordinatorLayout
         android:background="@android:color/white"
         android:id="@+id/fragment_coordinator_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:fitsSystemWindows="true">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="@dimen/detail_backdrop_height"
             android:fitsSystemWindows="true"
             android:background="@android:color/white"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -25,11 +32,11 @@
                 android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
+                android:layout_margin="@dimen/item_offset"
                 android:fitsSystemWindows="true"
                 app:contentScrim="?attr/colorPrimary"
-                app:expandedTitleMarginEnd="64dp"
-                app:expandedTitleMarginStart="48dp"
+                app:expandedTitleMarginEnd="@dimen/expanded_title_margin_end"
+                app:expandedTitleMarginStart="@dimen/expanded_title_margin_start"
                 app:expandedTitleTextAppearance="@android:color/transparent"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
@@ -55,20 +62,20 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/love_music"
+                            android:id="@+id/currency_backdrop_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:text="@string/backdrop_title"
                             android:textColor="@android:color/black"
-                            android:textSize="30sp" />
+                            android:textSize="@dimen/backdrop_title" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/backdrop_subtitle"
                             android:textColor="@android:color/black"
-                            android:textSize="18sp" />
+                            android:textSize="@dimen/backdrop_subtitle" />
 
                     </LinearLayout>
 
@@ -89,7 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/fragment_relative_layout2"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/item_offset"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:layout_editor_absoluteY="441dp">
 
@@ -106,7 +113,6 @@
 
     <include android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        layout="@layout/menu_layout"
-        android:layout_alignParentBottom="true"/>
+        layout="@layout/menu_layout" />
 
-</RelativeLayout>
+</LinearLayout>

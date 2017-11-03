@@ -3,10 +3,14 @@ package com.example.cryptocurrencyconverter.others;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Point;
+import android.os.Handler;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -18,7 +22,11 @@ import com.example.cryptocurrencyconverter.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import static com.example.cryptocurrencyconverter.fragments.CryptoCurrencyFragment.getCryptoSymbol;
+import static com.example.cryptocurrencyconverter.others.NetworkingClass.GET;
 import static com.example.cryptocurrencyconverter.others.Others.Constants.*;
 
 /**
@@ -32,11 +40,13 @@ public class CurrencyGridLayoutAdapter extends RecyclerViewAdapter {
     private Activity activity;
     private List<Currency> currencies;
     private int screenWidth;
+    private Timer timer;
     private OnBottomReachedListener onBottomReachedListener;
 
-    public CurrencyGridLayoutAdapter(Activity activity, List<Currency> currencies) {
+    public CurrencyGridLayoutAdapter(Activity activity, List<Currency> currencies, Timer timer) {
         this.activity = activity;
         this.currencies = currencies;
+        this.timer = timer;
         // get size of screen display using WindowManager and Point object class
         WindowManager wm = (WindowManager) activity.getSystemService(Context.WINDOW_SERVICE);
         assert wm != null;
@@ -46,8 +56,8 @@ public class CurrencyGridLayoutAdapter extends RecyclerViewAdapter {
         screenWidth = size.x;
     }
 
-    public void setImages(List<Currency> images) {
-        this.currencies = images;
+    public void setCurrencies(List<Currency> currencies) {
+        this.currencies = currencies;
     }
 
     public void setOnBottomReachedListener(OnBottomReachedListener onBottomReachedListener) {
@@ -72,8 +82,8 @@ public class CurrencyGridLayoutAdapter extends RecyclerViewAdapter {
      */
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Holder myHolder = (Holder) holder;
-        Currency currency = currencies.get(position);
+        final Holder myHolder = (Holder) holder;
+        final Currency currency = currencies.get(position);
 
         /* if last item reached, call bottom reached method */
         if (position == (currencies.size() - 1)) {
@@ -89,11 +99,40 @@ public class CurrencyGridLayoutAdapter extends RecyclerViewAdapter {
         loadPictureToImageView(myHolder.currency_image, currency.getThumbnail(), R.drawable.money_4);
         loadPictureToImageView(myHolder.currency_symbol, currency.getIcon(), R.drawable.icons_general_note);
 
+        final String id = (!currency.getID().equals("")) ? currency.getID() : "";
+        final String url = "https://min-api.cryptocompare.com/data/price?fsym=" + getCryptoSymbol() +
+                "&tsyms=" + id;
+
+        final Handler handler = new Handler();
+        // Timer timer = new Timer();
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            GET(url, activity, myHolder.currency_exchange, id);
+                        } catch (Exception ex){
+                            Log.e(ERROR, "Something went wrong");
+                            ex.printStackTrace();
+                        }
+                    }
+                });
+            }
+        };
+        timer.scheduleAtFixedRate(timerTask, 0, 50000);
+
+        if (currency.getID().equals("")) {
+            myHolder.currency_overflow.setVisibility(View.GONE);
+            myHolder.currency_exchange.setText(activity.getString(R.string.exchange_rate));
+        }
+
         // click listener for overflow menu
         myHolder.currency_overflow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(activity, "Overflow tapped", Toast.LENGTH_SHORT).show();
+                showPopupMenu(myHolder.currency_overflow);
             }
         });
     }
@@ -103,8 +142,19 @@ public class CurrencyGridLayoutAdapter extends RecyclerViewAdapter {
      */
     @Override
     public int getItemCount() {
-        Log.e("NO. OF CURRENCIES", ""+currencies.size());
         return currencies.size();
+    }
+
+    /**
+     * Showing popup menu when tapping on 3 dots
+     */
+    private void showPopupMenu(View view) {
+        // inflate menu
+        PopupMenu popup = new PopupMenu(activity, view);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.menu_currency, popup.getMenu());
+        popup.setOnMenuItemClickListener(new MyMenuItemClickListener());
+        popup.show();
     }
 
     private void loadPictureToImageView(ImageView view, int thumbnail, int placeholder) {
@@ -144,6 +194,27 @@ public class CurrencyGridLayoutAdapter extends RecyclerViewAdapter {
             currency_overflow = itemView.findViewById(R.id.currency_overflow);
             currency_exchange = itemView.findViewById(R.id.currency_exchange_rate);
             currency_symbol = itemView.findViewById(R.id.currency_symbol);
+        }
+    }
+
+    private class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
+
+        MyMenuItemClickListener() {}
+
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+
+            switch (item.getItemId()){
+                case R.id.action_change_background:
+                    Toast.makeText(activity, "Changing currency image", Toast.LENGTH_SHORT).show();
+                    return true;
+                case R.id.action_remove_currency:
+                    Toast.makeText(activity, "Removing currency", Toast.LENGTH_SHORT).show();
+                    return true;
+                default:
+                    return false;
+            }
+
         }
     }
 }

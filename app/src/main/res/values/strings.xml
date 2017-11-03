@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">BitConverter</string>
+    <string name="app_intro">App Intro</string>
+    <string name="action_change_background">Change currency image</string>
+    <string name="action_remove_currency">Remove currency</string>
     <string name="currency_description">This is a currency</string>
     <string name="menu_description">This is a overflow menu button</string>
     <string name="backdrop_title">Currency Conversion</string>
@@ -10,4 +13,73 @@
     <string name="home_description">This is the home page</string>
     <string name="arrow_description">Convert to </string>
     <string name="currency_inversion">Invert currencies</string>
+    <string name="currency1">Currency1</string>
+    <string name="currency2">Currency2</string>
+    <string name="add_currency">Add Currency</string>
+    <string name="internet_dialog_title">Select internet connection</string>
+    <string name="wifi_option">Wi-Fi</string>
+    <string name="mobile_network_option">Mobile Networks</string>
+    <string name="internet_message">Please select an internet connection</string>
+    <string name="close_button">Close</string>
+    <string-array name="currencies">
+        <item>US dollar</item>
+        <item>Euro</item>
+        <item>Pound sterling</item>
+        <item>Swiss franc</item>
+        <item>Indian rupee</item>
+        <item>Japanese yen</item>
+        <item>Australian dollar</item>
+        <item>Canadian dollar</item>
+        <item>Kuwaiti dinar</item>
+        <item>Chinese yuan</item>
+        <item>Russian ruble</item>
+        <item>New Zealand dollar</item>
+        <item>South African rand</item>
+        <item>Omani rial</item>
+        <item>Singapore dollar</item>
+        <item>Bahraini dinar</item>
+        <item>Hong Kong dollar</item>
+        <item>Turkish lira</item>
+        <item>Brazilian real</item>
+        <item>Nigerian naira</item>
+    </string-array>
+    <string-array name="currencies_symbols">
+        <item>USD</item>
+        <item>EUR</item>
+        <item>GBP</item>
+        <item>CHF</item>
+        <item>INR</item>
+        <item>JPY</item>
+        <item>AUD</item>
+        <item>CAD</item>
+        <item>KWD</item>
+        <item>CNY</item>
+        <item>RUB</item>
+        <item>NZD</item>
+        <item>ZAR</item>
+        <item>OMR</item>
+        <item>SGD</item>
+        <item>BHD</item>
+        <item>HKD</item>
+        <item>TRY</item>
+        <item>BRL</item>
+        <item>NGN</item>
+    </string-array>
+    <string name="base_currency_message">Please select base conversion currency</string>
+    <string name="base_currency_title">Choose base currency</string>
+    <string-array name="crypto_currencies">
+        <item>Bitcoin</item>
+        <item>Ethereum</item>
+        <item>Litecoin</item>
+        <item>Ripple</item>
+        <item>Zcash</item>
+    </string-array>
+    <string-array name="crypto_currencies_symbols">
+        <item>BTC</item>
+        <item>ETH</item>
+        <item>LTC</item>
+        <item>XRP</item>
+        <item>ZEC</item>
+    </string-array>
+    <string name="accept_button">OK</string>
 </resources>

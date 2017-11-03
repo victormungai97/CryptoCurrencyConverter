@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Layout for introductory dialog fragment
+  Used to choose the base currency for conversion -->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/base_currency_title_text"
+        android:textAlignment="center"
+        android:layout_margin="@dimen/dialog_base_currency_title_text_view_margin"
+        android:text="@string/base_currency_message"
+        android:textSize="@dimen/dialog_internet_title_text_size"/>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dialog_base_currency_spinner_height"
+        android:layout_weight="1"
+        android:id="@+id/base_currency_spinner"
+        android:layout_margin="@dimen/dialog_base_currency_spinner_margin" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dialog_internet_button_width"
+        android:layout_weight="1"
+        android:id="@+id/base_currency_button"
+        android:layout_gravity="center"
+        style="?android:buttonBarStyle"
+        android:text="@string/accept_button"
+        android:layout_margin="@dimen/dialog_base_currency_button_margin"
+        android:textStyle="bold|italic"
+        android:textSize="@dimen/dialog_internet_button_text_size"/>
+
+</LinearLayout>

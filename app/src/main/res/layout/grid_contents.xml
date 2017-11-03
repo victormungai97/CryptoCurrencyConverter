@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- Implements a card view which hence how the currencies
+   are rendered to the user -->
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card = "http://schemas.android.com/apk/res-auto"
@@ -11,8 +15,8 @@
         android:layout_height="match_parent"
         android:id="@+id/currency_card_view"
         android:layout_gravity="center"
-        android:layout_margin="5dp"
-        card:cardCornerRadius="3dp">
+        android:layout_margin="@dimen/card_margin"
+        card:cardCornerRadius="@dimen/card_corner_radius">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -20,8 +24,8 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_margin="5dp"
+                android:layout_height="@dimen/card_currency_image_height"
+                android:layout_margin="@dimen/card_currency_image_margin"
                 android:id="@+id/currency_image_view"
                 android:contentDescription="@string/currency_description"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -31,8 +35,8 @@
                 android:id="@+id/currency_relative_layout1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="@dimen/card_currency_relative_layout1_margin"
+                android:layout_marginRight="@dimen/card_currency_relative_layout1_margin"
                 android:layout_below="@id/currency_image_view">
 
                 <TextView
@@ -40,16 +44,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:padding="10dp"/>
+                    android:padding="@dimen/card_currency_title_view_padding"/>
 
                 <ImageView
                     android:id="@+id/currency_overflow"
-                    android:layout_width="20dp"
-                    android:layout_height="30dp"
+                    android:layout_width="@dimen/card_currency_overflow_width"
+                    android:layout_height="@dimen/card_currency_overflow_height"
                     android:contentDescription="@string/menu_description"
                     android:layout_alignParentEnd="true"
                     android:scaleType="centerCrop"
-                    android:padding="7.5dp"
+                    android:padding="@dimen/card_currency_overflow_padding"
                     android:src="@drawable/ic_dots" />
 
             </RelativeLayout>
