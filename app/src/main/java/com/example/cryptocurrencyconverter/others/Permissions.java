@@ -3,7 +3,6 @@ package com.example.cryptocurrencyconverter.others;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -11,11 +10,8 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.net.wifi.WifiManager;
-import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -32,8 +28,6 @@ import static com.example.cryptocurrencyconverter.others.Others.Constants.*;
  */
 
 public class Permissions {
-
-    private Context mContext;
 
     /**
      * Check on permissions and redirect user to accept them
@@ -55,16 +49,6 @@ public class Permissions {
 
         public InternetConnectionDialogFragment() {
             super.alertDialogLayout = R.layout.dialog_internet_picker;
-        }
-
-        @Override
-        public void onActivityResult(int requestCode, int resultCode, Intent data) {
-            super.onActivityResult(requestCode, resultCode, data);
-
-            if (requestCode == REQUEST_MOBILE_NETWORK && resultCode == Activity.RESULT_OK) {
-                Log.e("INTERNET" + TAG, "Connected?");
-                exitFragment();
-            }
         }
 
         @Override
