@@ -55,7 +55,7 @@ public class SpinnerAdapter extends ArrayAdapter<BaseCurrencyData> {
         mViewHolder.currencyImageView = convertView.findViewById(R.id.base_currency_image);
         Picasso.with(activity)
                 .load(list.get(position).getImageId())
-                .resize(300, 300)
+                .resize(50, 50)
                 .centerInside()
                 .into(mViewHolder.currencyImageView);
         mViewHolder.currencyTextView = convertView.findViewById(R.id.base_currency_text);

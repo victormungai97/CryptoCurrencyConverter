@@ -73,6 +73,9 @@
         <item>Litecoin</item>
         <item>Ripple</item>
         <item>Zcash</item>
+        <item>Monero</item>
+        <item>NEM</item>
+        <item>Dash</item>
     </string-array>
     <string-array name="crypto_currencies_symbols">
         <item>BTC</item>
@@ -80,6 +83,9 @@
         <item>LTC</item>
         <item>XRP</item>
         <item>ZEC</item>
+        <item>XMR</item>
+        <item>XEM</item>
+        <item>DASH</item>
     </string-array>
     <string name="accept_button">OK</string>
 </resources>

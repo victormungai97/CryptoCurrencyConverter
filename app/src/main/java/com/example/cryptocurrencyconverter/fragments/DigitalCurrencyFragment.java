@@ -29,6 +29,7 @@ public class DigitalCurrencyFragment extends GeneralCurrencyFragment {
         args.putStringArray(SYMBOLS, symbols);
         args.putBoolean(CRYPTO_TO_CURRENCY, false);
         args.putInt(CRYPTO_SYMBOL, R.drawable.icons_cryptocurrency);
+        args.putBoolean(DIGITAL_CURRENCY, true);
 
         DigitalCurrencyFragment fragment = new DigitalCurrencyFragment();
         fragment.setArguments(args);

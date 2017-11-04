@@ -49,7 +49,8 @@ import static com.example.cryptocurrencyconverter.others.Others.Currencies.*;
  * This class will be the base fragment for the various currency fragments
  * CREDITS
  * Card view: https://www.androidhive.info/2016/05/android-working-with-card-view-and-recycler-view/
- * Currency images: Google image search and https://icons8.com
+ * Currency images: Google image search, https://icons8.com and Junik Studio
+ * (https://www.behance.net/JunikStudio or http://www.junikstudio.com)
  */
 
 public abstract class GeneralCurrencyFragment extends Fragment {
@@ -72,6 +73,7 @@ public abstract class GeneralCurrencyFragment extends Fragment {
     String [] currencies_list = null;
     String [] currencies_symbols = null;
     boolean isCryptoToCurrency;
+    boolean isDigital;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -108,6 +110,7 @@ public abstract class GeneralCurrencyFragment extends Fragment {
             currencies_list = getArguments().getStringArray(LIST);
             currencies_symbols = getArguments().getStringArray(SYMBOLS);
             isCryptoToCurrency = getArguments().getBoolean(CRYPTO_TO_CURRENCY);
+            isDigital = getArguments().getBoolean(DIGITAL_CURRENCY);
             image_res = getArguments().getInt(CRYPTO_SYMBOL);
             image_res = (image_res == 0) ? R.drawable.money_4 : image_res;
         }
@@ -287,8 +290,13 @@ public abstract class GeneralCurrencyFragment extends Fragment {
 
         // create instance of Currency class and add to list
         for (int i = 0; i < currencies_list.length; i++ ){
-            currencies.add(new Currency(currencies_list[i], currency_images[i], icons[i],
-                    currencies_symbols[i]));
+            if (isDigital) {
+                currencies.add(new Currency(currencies_list[i], digital_currency_images[i], digital_icons[i],
+                        currencies_symbols[i]));
+            } else {
+                currencies.add(new Currency(currencies_list[i], currency_images[i], icons[i],
+                        currencies_symbols[i]));
+            }
         }
         currencies.add(new Currency("Add new currency", currency_images[20]));
     }
@@ -334,7 +342,7 @@ public abstract class GeneralCurrencyFragment extends Fragment {
         // set image for crypto currency to image view in collapsing toolbar
         Picasso.with(getContext())
                 .load(image_res)
-                .resize(50, 50)
+                .resize(300, 300)
                 .centerInside()
                 .into((ImageView) view.findViewById(R.id.backdrop));
         Log.e(TAG, "Symbol -> " + cryptoSymbol);

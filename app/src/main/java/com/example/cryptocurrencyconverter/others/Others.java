@@ -35,6 +35,18 @@ public class Others {
                 R.drawable.ic_add_currency, // add new currency
         };
 
+        // array of resIds of images of digital currencies saved in drawable folder
+        public static final int [] digital_currency_images = new int[] {
+                R.drawable.bitcoin, // Bitcoin
+                R.drawable.ethereum, // icons_ethereum
+                R.drawable.litecoin, // Litecoin
+                R.drawable.ripple, // icons_ripple(XRP)
+                R.drawable.zcash, // Zcash
+                R.drawable.monero, // monero
+                R.drawable.nem, // NEM
+                R.drawable.dash, // DASH
+        };
+
         // array of resIds of icons of currencies
         public static int [] icons = new int[] {
                 R.drawable.icons_us_dollar, // 0
@@ -58,6 +70,18 @@ public class Others {
                 R.drawable.icons_brazilian_real, // 18
                 R.drawable.icons_nigerian_naira, // 19
         };
+
+        // array of resIds of icons of digital currencies
+        public static final int [] digital_icons = new int[] {
+                R.drawable.icons_bitcoin, // 0
+                R.drawable.icons_ethereum, // 1
+                R.drawable.icons_litecoin, // 2
+                R.drawable.icons_ripple, // 3
+                R.drawable.icons_zcash, // 4
+                R.drawable.icons_monero, // 5
+                R.drawable.icons_nem, // 6
+                R.drawable.icons_dash, // 7
+        };
     }
 
     public class Constants {
@@ -79,5 +103,6 @@ public class Others {
         public static final String CRYPTO_SYMBOL = "crypto_symbol";
         public static final String CURRENCY_SYMBOL = "currency_symbol";
         public static final String CRYPTO_TO_CURRENCY = "crypto_to_currency";
+        public static final String DIGITAL_CURRENCY = "DIGITAL CURRENCY";
     }
 }
