@@ -6,9 +6,12 @@ import com.example.cryptocurrencyconverter.R;
 import com.example.cryptocurrencyconverter.fragments.CryptoCurrencyFragment;
 
 public class CryptoCurrencyActivity extends MainFragmentActivity {
-
     @Override
     protected Fragment createFragment() {
+        return cryptoCurrencyFragment();
+    }
+
+    private Fragment cryptoCurrencyFragment() {
         String [] currency_titles = getResources().getStringArray(R.array.crypto_currencies);
         String [] currency_images = getResources().getStringArray(R.array.crypto_currencies_symbols);
         String [] currencies_list = getResources().getStringArray(R.array.currencies);

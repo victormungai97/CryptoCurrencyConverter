@@ -142,6 +142,7 @@ public class CurrencyGridLayoutAdapter extends RecyclerViewAdapter {
      */
     @Override
     public int getItemCount() {
+        Log.e("CURRENCIES "  + TAG, "No. of currencies -> " + currencies.size());
         return currencies.size();
     }
 

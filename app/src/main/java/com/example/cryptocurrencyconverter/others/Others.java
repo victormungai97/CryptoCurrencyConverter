@@ -39,24 +39,24 @@ public class Others {
         public static int [] icons = new int[] {
                 R.drawable.icons_us_dollar, // 0
                 R.drawable.icons_euro, // 1
-                R.drawable.icons_british_pound, // 2
+                R.drawable.icons_pound_sterling, // 2
                 R.drawable.icons_swiss_franc, // 3
-                R.drawable.icons_rupee, // 4
+                R.drawable.icons_indian_rupee, // 4
                 R.drawable.icons_japanese_yen, // 5
-                R.drawable.icons_australian_dollar_filled, // 6
+                R.drawable.icons_australian_dollar, // 6
                 R.drawable.icons_canadian_dollar, // 7
                 R.drawable.icons_kuwaiti_dinar, // 8
-                R.drawable.icons_renminbi, // 9
-                R.drawable.icons_ruble, // 10
-                R.drawable.icons_nz_dollar, // 11
-                R.drawable.icons_rand, // 12
+                R.drawable.icons_chinese_yuan, // 9
+                R.drawable.icons_russian_ruble, // 10
+                R.drawable.icons_new_zealand_dollar, // 11
+                R.drawable.icons_south_african_rand, // 12
                 R.drawable.icons_omani_rial, // 13
                 R.drawable.icons_singapore_dollar, // 14
                 R.drawable.icons_bahraini_dinar, // 15
                 R.drawable.icons_hong_kong_dollar, // 16
                 R.drawable.icons_turkish_lira, // 17
                 R.drawable.icons_brazilian_real, // 18
-                R.drawable.icons_naira, // 19
+                R.drawable.icons_nigerian_naira, // 19
         };
     }
 

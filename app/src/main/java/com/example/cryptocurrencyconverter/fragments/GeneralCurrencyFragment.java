@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,7 +15,6 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +27,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.cryptocurrencyconverter.R;
+import com.example.cryptocurrencyconverter.activities.ConventionalCurrencyActivity;
+import com.example.cryptocurrencyconverter.activities.CryptoCurrencyActivity;
+import com.example.cryptocurrencyconverter.activities.DigitalCurrencyActivity;
 import com.example.cryptocurrencyconverter.others.Currency;
 import com.example.cryptocurrencyconverter.others.CurrencyGridLayoutAdapter;
 import com.example.cryptocurrencyconverter.others.OnBottomReachedListener;
@@ -55,7 +56,7 @@ public abstract class GeneralCurrencyFragment extends Fragment {
     static String cryptoSymbol;
     static String currency1;
 
-    List<Currency> currencies = new ArrayList<>();
+    static List<Currency> currencies = new ArrayList<>();
     GridLayoutManager mLayoutManager;
     CurrencyGridLayoutAdapter currencyGridLayoutAdapter;
     RecyclerView recyclerViewMain;
@@ -66,12 +67,10 @@ public abstract class GeneralCurrencyFragment extends Fragment {
     CoordinatorLayout coordinatorLayout;
     Timer timer;
     int image_res;
-    static String [] currency_titles;
-    static String [] currency_codes;
-    String [] currencies_list;
-    String [] currencies_symbols;
-    int navItemIndex;
-    Handler mHandler;
+    static String [] currency_titles = null;
+    static String [] currency_codes = null;
+    String [] currencies_list = null;
+    String [] currencies_symbols = null;
     boolean isCryptoToCurrency;
 
     @Override
@@ -112,8 +111,6 @@ public abstract class GeneralCurrencyFragment extends Fragment {
             image_res = getArguments().getInt(CRYPTO_SYMBOL);
             image_res = (image_res == 0) ? R.drawable.money_4 : image_res;
         }
-
-        mHandler = new Handler();
 
         FragmentManager fm = getFragmentManager();
         BaseCurrencyDialogFragment dialog = BaseCurrencyDialogFragment.newInstance(currency_titles);
@@ -187,8 +184,8 @@ public abstract class GeneralCurrencyFragment extends Fragment {
         crypto_currency_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                navItemIndex = 0;
-                loadFragment();
+                Intent intent = new Intent(getContext(), CryptoCurrencyActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -196,8 +193,8 @@ public abstract class GeneralCurrencyFragment extends Fragment {
         currency_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                navItemIndex = 1;
-                loadFragment();
+                Intent intent = new Intent(getContext(), ConventionalCurrencyActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -205,8 +202,8 @@ public abstract class GeneralCurrencyFragment extends Fragment {
         digital_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                navItemIndex = 2;
-                loadFragment();
+                Intent intent = new Intent(getContext(), DigitalCurrencyActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -243,71 +240,8 @@ public abstract class GeneralCurrencyFragment extends Fragment {
         Log.e("INTERNET "+TAG, "Network connection -> " + isNetworkAvailable(getContext()));
     }
 
-    private Fragment cryptoCurrencyFragment() {
-        String [] currency_titles = getResources().getStringArray(R.array.crypto_currencies);
-        String [] currency_images = getResources().getStringArray(R.array.crypto_currencies_symbols);
-        String [] currencies_list = getResources().getStringArray(R.array.currencies);
-        String [] currencies_symbols = getResources().getStringArray(R.array.currencies_symbols);
-
-        return CryptoCurrencyFragment.newInstance(currency_titles, currency_images,
-                currencies_list, currencies_symbols);
-    }
-
-    private Fragment conventionalCurrencyFragment() {
-        String [] currency_titles = getResources().getStringArray(R.array.currencies);
-        String [] currency_images = getResources().getStringArray(R.array.currencies_symbols);
-        String [] currencies_list = getResources().getStringArray(R.array.currencies);
-        String [] currencies_symbols = getResources().getStringArray(R.array.currencies_symbols);
-
-        return ConventionalCurrencyFragment.newInstance(currency_titles, currency_images,
-                currencies_list, currencies_symbols);
-    }
-
-    private Fragment digitalCurrencyFragment() {
-        String [] currency_titles = getResources().getStringArray(R.array.crypto_currencies);
-        String [] currency_images = getResources().getStringArray(R.array.crypto_currencies_symbols);
-        String [] currencies_list = getResources().getStringArray(R.array.crypto_currencies);
-        String [] currencies_symbols = getResources().getStringArray(R.array.crypto_currencies_symbols);
-
-        return DigitalCurrencyFragment.newInstance(currency_titles, currency_images,
-                currencies_list, currencies_symbols);
-    }
-
-    private Fragment getFragment(){
-        switch (navItemIndex) {
-            case 0:
-                return cryptoCurrencyFragment();
-            case 1:
-                return conventionalCurrencyFragment();
-            case 2:
-                return digitalCurrencyFragment();
-            default:
-                return cryptoCurrencyFragment();
-        }
-    }
-
-    private void loadFragment() {
-        final AppCompatActivity activity = (AppCompatActivity) getActivity();
-        assert activity != null;
-        // Sometimes, when fragment has huge data, screen seems hanging
-        // when switching between navigation menus
-        // So using runnable, the fragment is loaded with cross fade effect
-        // This effect can be seen in GMail app
-        Runnable mPendingRunnable = new Runnable() {
-            @Override
-            public void run() {
-                // update the main content by replacing fragments
-                Fragment fragment = getFragment();
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-                    (getActivity()).getSupportFragmentManager()
-                            .beginTransaction().add(fragment, "dialog").commit();
-                else
-                    getChildFragmentManager().beginTransaction().add(fragment,"dialog").commit();
-            }
-        };
-
-        // If mPendingRunnable is not null, then add to the message queue
-        mHandler.post(mPendingRunnable);
+    public static String getCryptoSymbol() {
+        return cryptoSymbol;
     }
 
     /**
@@ -348,6 +282,8 @@ public abstract class GeneralCurrencyFragment extends Fragment {
      * which is then saved a list of Currencies
      */
     private void initializeCurrencies() {
+        // clear currencies if it is not empty
+        if (!currencies.isEmpty()) currencies.clear();
 
         // create instance of Currency class and add to list
         for (int i = 0; i < currencies_list.length; i++ ){
@@ -355,10 +291,6 @@ public abstract class GeneralCurrencyFragment extends Fragment {
                     currencies_symbols[i]));
         }
         currencies.add(new Currency("Add new currency", currency_images[20]));
-    }
-
-    public static String getCryptoSymbol() {
-        return cryptoSymbol;
     }
 
     /**
@@ -370,6 +302,7 @@ public abstract class GeneralCurrencyFragment extends Fragment {
             currencyGridLayoutAdapter = new CurrencyGridLayoutAdapter(getActivity(), currencies, timer);
             recyclerViewMain.setItemAnimator(new DefaultItemAnimator());
             recyclerViewMain.setAdapter(currencyGridLayoutAdapter);
+            recyclerViewMain.invalidate();
         } else {
             currencyGridLayoutAdapter.setCurrencies(currencies);
             currencyGridLayoutAdapter.notifyDataSetChanged();
@@ -401,7 +334,7 @@ public abstract class GeneralCurrencyFragment extends Fragment {
         // set image for crypto currency to image view in collapsing toolbar
         Picasso.with(getContext())
                 .load(image_res)
-                .resize(300, 300)
+                .resize(50, 50)
                 .centerInside()
                 .into((ImageView) view.findViewById(R.id.backdrop));
         Log.e(TAG, "Symbol -> " + cryptoSymbol);

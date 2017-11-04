@@ -52,7 +52,10 @@ public class BaseCurrencyDialogFragment extends GeneralDialogFragment {
 
         // set up adapter for given custom row layout
         ArrayList<BaseCurrencyData> list = new ArrayList<>();
+        // set currency symbols and images based on available choice
         for (String currency_title : currency_titles) {
+            if (currency_title.contains(" "))
+                currency_title = currency_title.replace(" ", "_");
             list.add(new BaseCurrencyData(currency_title,
                     activity.getResources()
                             .getIdentifier("icons_" + currency_title.toLowerCase(),

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.cryptocurrencyconverter.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -25,18 +26,21 @@ public class SpinnerAdapter extends ArrayAdapter<BaseCurrencyData> {
     private int group_id;
     private ArrayList<BaseCurrencyData> list;
     private LayoutInflater inflater;
+    private Activity activity;
 
-    public SpinnerAdapter(Activity context, int group_id, int id, ArrayList<BaseCurrencyData>
+    public SpinnerAdapter(Activity activity, int group_id, int id, ArrayList<BaseCurrencyData>
             list){
-        super(context,id,list);
+        super(activity,id,list);
+        this.activity = activity;
         this.list = list;
-        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.group_id = group_id;
     }
 
     @NonNull
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent ){
+        /* Get view holder, inflate layout and then initialize and customise views in layout */
         ViewHolder mViewHolder;
 
         if (convertView == null){
@@ -49,7 +53,11 @@ public class SpinnerAdapter extends ArrayAdapter<BaseCurrencyData> {
         }
 
         mViewHolder.currencyImageView = convertView.findViewById(R.id.base_currency_image);
-        mViewHolder.currencyImageView.setImageResource(list.get(position).getImageId());
+        Picasso.with(activity)
+                .load(list.get(position).getImageId())
+                .resize(300, 300)
+                .centerInside()
+                .into(mViewHolder.currencyImageView);
         mViewHolder.currencyTextView = convertView.findViewById(R.id.base_currency_text);
         mViewHolder.currencyTextView.setText(list.get(position).getText());
 
