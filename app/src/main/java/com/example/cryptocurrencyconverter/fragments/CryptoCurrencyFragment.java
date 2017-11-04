@@ -1,271 +1,42 @@
 package com.example.cryptocurrencyconverter.fragments;
 
-import android.app.Activity;
-import android.content.Context;
+
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.example.cryptocurrencyconverter.R;
 import com.example.cryptocurrencyconverter.activities.ConversionActivity;
-import com.example.cryptocurrencyconverter.others.Currency;
 import com.example.cryptocurrencyconverter.others.CurrencyGridLayoutAdapter;
-import com.example.cryptocurrencyconverter.others.OnBottomReachedListener;
-import com.example.cryptocurrencyconverter.others.Permissions;
-import com.example.cryptocurrencyconverter.others.Permissions.InternetConnectionDialogFragment;
-import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-
-import static com.example.cryptocurrencyconverter.others.NetworkingClass.isNetworkAvailable;
 import static com.example.cryptocurrencyconverter.others.Others.Constants.*;
-import static com.example.cryptocurrencyconverter.others.Others.Currencies.*;
 
 /**
  * Created by victor mungai on 10/27/17.
- * This fragment will inflate the layout for conversion between currency and crypto currency, kinda
- * CREDITS
- * Card view: https://www.androidhive.info/2016/05/android-working-with-card-view-and-recycler-view/
- * Currency images: Google image search and https://icons8.com
+ * This fragment will inflate the layout for conversion between conventional and digital currencies
  */
 
-public class CryptoCurrencyFragment extends Fragment {
+public class CryptoCurrencyFragment extends GeneralCurrencyFragment {
 
-    private static String cryptoSymbol;
-    private static String currency1;
+    public static CryptoCurrencyFragment newInstance(String[] titles, String[] codes,
+                                                     String[] list, String[] symbols) {
 
-    List<Currency> currencies = new ArrayList<>();
-    GridLayoutManager mLayoutManager;
-    CurrencyGridLayoutAdapter currencyGridLayoutAdapter;
-    RecyclerView recyclerViewMain;
-    Parcelable mListState;
-    LinearLayout menu_layout;
-    View view;
-    CoordinatorLayout coordinatorLayout;
-    Timer timer;
-    int image_res = R.drawable.money_4;
-    static String [] currency_titles;
-    String [] currencies_list;
-    String [] currencies_symbols;
+        Bundle args = new Bundle();
+        args.putStringArray(TITLES, titles);
+        args.putStringArray(CODES, codes);
+        args.putStringArray(LIST, list);
+        args.putStringArray(SYMBOLS, symbols);
+        args.putBoolean(CRYPTO_TO_CURRENCY, true);
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        // retrieve contents on screen before rotation
-        if (savedInstanceState != null) {
-            mListState = savedInstanceState.getParcelable(LIST_STATE_KEY);
-        }
+        CryptoCurrencyFragment fragment = new CryptoCurrencyFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CURRENCY) {
-            Log.e(TAG, "Received");
-            updateBaseCurrency(data.getStringExtra(EXTRA_CURRENCY));
-        }
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        // check permissions and request those not granted
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ) {
-            Permissions.checkPermission(getActivity(), getActivity());
-        }
-
-        currency_titles = getResources().getStringArray(R.array.crypto_currencies);
-        currencies_list = getResources().getStringArray(R.array.currencies);
-        currencies_symbols = getResources().getStringArray(R.array.currencies_symbols);
-        FragmentManager fm = getFragmentManager();
-        BaseCurrencyDialogFragment dialog = BaseCurrencyDialogFragment.newInstance(currency_titles);
-        // create connection btn fragments by making CryptoCurrencyFragment
-        // the target of BaseCurrencyDialogFragment
-        dialog.setTargetFragment(CryptoCurrencyFragment.this, REQUEST_CURRENCY);
-        assert fm != null;
-        dialog.show(fm, INTERNET_PICKER);
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        // Inflate layout
-        view = inflater.inflate(R.layout.fragment_crypto_currency, container,false);
-
-        // inflate widgets
-        initCollapsingToolbar();
-        menu_layout = view.findViewById(R.id.menu_linear_layout);
-        recyclerViewMain = view.findViewById(R.id.card_recycler_view);
-        coordinatorLayout = view.findViewById(R.id.fragment_coordinator_layout);
-
-        updateBaseCurrency("");
-        setAdapter();
-        setGridLayoutManager();
-
-        // check if last element reached
-        currencyGridLayoutAdapter.setOnBottomReachedListener(new OnBottomReachedListener() {
-            @Override
-            public void onBottomReached(int position) {
-                menu_layout.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onBottomNotReached(int position) {
-                menu_layout.setVisibility(View.VISIBLE);
-            }
-        });
-
-        if (!isNetworkAvailable(getContext())){
-            Snackbar snackbar = Snackbar
-                    .make(coordinatorLayout, "This app needs internet access", Snackbar.LENGTH_LONG)
-                    .setAction("ENABLE", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            FragmentManager fm = getFragmentManager();
-                            InternetConnectionDialogFragment dialog = new InternetConnectionDialogFragment();
-                            assert fm != null;
-                            dialog.show(fm, INTERNET_PICKER);
-                        }
-                    });
-
-            // Changing message text color
-            snackbar.setActionTextColor(getResources().getColor(R.color.colorSnackbarActionText));
-
-            // Changing action button text color
-            View sbView = snackbar.getView();
-            TextView textView = sbView.findViewById(android.support.design.R.id.snackbar_text);
-            textView.setTextColor(Color.YELLOW);
-            snackbar.show();
-        }
-
-        initializeCurrencies();
-
-        return view;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (timer != null) timer.cancel();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        setAdapter();
-
-        if (mListState != null) {
-            mLayoutManager.onRestoreInstanceState(mListState);
-        }
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        // save recycler view state
-        mListState = mLayoutManager.onSaveInstanceState();
-        outState.putParcelable(LIST_STATE_KEY, mListState);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.e("INTERNET "+TAG, "Network connection -> " + isNetworkAvailable(getContext()));
-    }
-
-    /**
-     * Initializing collapsing toolbar
-     * Will show and hide the toolbar title on scroll
-     */
-    private void initCollapsingToolbar() {
-        final CollapsingToolbarLayout collapsingToolbar = view.findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle(" ");
-        AppBarLayout appBarLayout = view.findViewById(R.id.appbar);
-        appBarLayout.setExpanded(true);
-
-        // hiding & showing the title when toolbar expanded & collapsed
-        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            boolean isShow = false;
-            int scrollRange = -1;
-
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (scrollRange == -1) {
-                    scrollRange = appBarLayout.getTotalScrollRange();
-                }
-                if (scrollRange + verticalOffset == 0) {
-                    collapsingToolbar.setTitle(getString(R.string.backdrop_title));
-                    collapsingToolbar.setCollapsedTitleTextColor(getResources().getColor(R.color.black));
-                    isShow = true;
-                } else if (isShow) {
-                    collapsingToolbar.setTitle(" ");
-                    isShow = false;
-                }
-            }
-        });
-    }
-
-    /**
-     * Gets the images of currencies saved in drawable folder
-     * and pass them to an instance of Currency class
-     * which is then saved a list of Currencies
-     */
-    private void initializeCurrencies() {
-
-        // create instance of Currency class and add to list
-        for (int i = 0; i < currencies_list.length; i++ ){
-            currencies.add(new Currency(currencies_list[i], currency_images[i], icons[i],
-                    currencies_symbols[i]));
-        }
-        currencies.add(new Currency("Add new currency", currency_images[20]));
-    }
-
-    public static String getCryptoSymbol() {
-        return cryptoSymbol;
-    }
-
-    /**
-     * Used to create or update the adapter for the recycler view
-     */
-    private void setAdapter() {
-        if (currencyGridLayoutAdapter == null) {
-            timer = new Timer();
-            currencyGridLayoutAdapter = new CurrencyGridLayoutAdapter(getActivity(), currencies, timer);
-            recyclerViewMain.setItemAnimator(new DefaultItemAnimator());
-            recyclerViewMain.setAdapter(currencyGridLayoutAdapter);
-        } else {
-            currencyGridLayoutAdapter.setCurrencies(currencies);
-            currencyGridLayoutAdapter.notifyDataSetChanged();
-        }
-    }
-
-    private void setGridLayoutManager() {
+    public void setLayoutManager() {
         recyclerViewMain.setHasFixedSize(true); // tell RecyclerView that size will remain constant
         mLayoutManager = new GridLayoutManager(getContext(), 2);
         recyclerViewMain.setLayoutManager(mLayoutManager);
@@ -279,7 +50,7 @@ public class CryptoCurrencyFragment extends Fragment {
                         exchange_rate = myHolder.getCurrency_exchange().getText().toString(),
                         currSymbol = currencies_symbols[i];
                 Intent intent = ConversionActivity.newIntent(getContext(), currency1, currency2,
-                        exchange_rate, cryptoSymbol, currSymbol);
+                        exchange_rate, cryptoSymbol, currSymbol, currency_titles, currency_codes);
                 if (intent != null) startActivity(intent);
             }
         });
@@ -289,33 +60,5 @@ public class CryptoCurrencyFragment extends Fragment {
                 return false;
             }
         });
-    }
-
-    /*
-     * Update the base cryptocurrency symbol and image based on choice selected by user from spinner
-     */
-    private void updateBaseCurrency(String currency) {
-        // set base currency
-        currency1 = currency;
-
-        // change base currency symbol and image based on choice
-        for ( int i = 0; i < currency_titles.length; i++ ){
-            if (currency1.equals(currency_titles[i])) {
-                cryptoSymbol = getResources().getStringArray(R.array.crypto_currencies_symbols)[i];
-                Context context = getContext();
-                assert context != null;
-                image_res = getResources().getIdentifier(currency.toLowerCase(), "drawable",
-                        context.getPackageName());
-                break;
-            }
-        }
-
-        // set image for crypto currency to image view in collapsing toolbar
-        Picasso.with(getContext())
-                .load(image_res)
-                .resize(300, 300)
-                .centerInside()
-                .into((ImageView) view.findViewById(R.id.backdrop));
-        Log.e(TAG, "Symbol -> " + cryptoSymbol);
     }
 }

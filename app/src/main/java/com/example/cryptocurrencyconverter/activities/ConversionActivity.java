@@ -20,11 +20,15 @@ public class ConversionActivity extends MainFragmentActivity{
         Float exchange_rate = getIntent().getFloatExtra(EXCHANGE_RATE, 0);
         String crypto_symbol = getIntent().getStringExtra(CRYPTO_SYMBOL);
         String curr_symbol = getIntent().getStringExtra(CURRENCY_SYMBOL);
-        return ConversionFragment.newInstance(currency1, currency2, exchange_rate, crypto_symbol, curr_symbol);
+        String [] curr_titles = getIntent().getStringArrayExtra(TITLES);
+        String [] curr_symbols = getIntent().getStringArrayExtra(CODES);
+        return ConversionFragment.newInstance(currency1, currency2, exchange_rate, crypto_symbol,
+                curr_symbol, curr_titles, curr_symbols);
     }
 
     public static Intent newIntent(Context packageContext, String currency1, String currency2,
-                                   String exchange_rate, String cryptoSymbol, String currSymbol){
+                                   String exchange_rate, String cryptoSymbol, String currSymbol,
+                                   String [] currency_titles, String [] currency_symbols){
         Intent intent = new Intent(packageContext, ConversionActivity.class);
         try {
             intent.putExtra(FIRST_CURRENCY, currency1);
@@ -32,6 +36,8 @@ public class ConversionActivity extends MainFragmentActivity{
             intent.putExtra(EXCHANGE_RATE, Float.parseFloat(exchange_rate));
             intent.putExtra(CRYPTO_SYMBOL, cryptoSymbol);
             intent.putExtra(CURRENCY_SYMBOL, currSymbol);
+            intent.putExtra(TITLES, currency_titles);
+            intent.putExtra(CODES, currency_symbols);
         } catch (Exception ex){
             Log.e("CONVERSION "+ERROR, "Something went wrong");
             ex.printStackTrace();

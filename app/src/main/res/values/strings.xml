@@ -21,6 +21,8 @@
     <string name="mobile_network_option">Mobile Networks</string>
     <string name="internet_message">Please select an internet connection</string>
     <string name="close_button">Close</string>
+    <string name="base_currency_message">Please select base conversion currency</string>
+    <string name="base_currency_title">Choose base currency</string>
     <string-array name="currencies">
         <item>US dollar</item>
         <item>Euro</item>
@@ -65,8 +67,6 @@
         <item>BRL</item>
         <item>NGN</item>
     </string-array>
-    <string name="base_currency_message">Please select base conversion currency</string>
-    <string name="base_currency_title">Choose base currency</string>
     <string-array name="crypto_currencies">
         <item>Bitcoin</item>
         <item>Ethereum</item>

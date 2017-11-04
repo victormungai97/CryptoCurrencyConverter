@@ -73,7 +73,11 @@ public class Others {
         public static final String EXTRA_CURRENCY = "com.example.cryptocurrencyconverter.currencies";
         public static final String INTERNET_PICKER = "INTERNET_PICKER";
         public static final String LIST = "list";
+        public static final String TITLES = "titles";
+        public static final String SYMBOLS = "symbols";
+        public static final String CODES = "codes";
         public static final String CRYPTO_SYMBOL = "crypto_symbol";
         public static final String CURRENCY_SYMBOL = "currency_symbol";
+        public static final String CRYPTO_TO_CURRENCY = "crypto_to_currency";
     }
 }

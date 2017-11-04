@@ -41,9 +41,11 @@ public class ConversionFragment extends Fragment {
     EditText currency2EditText;
     TextWatcher currency1TextWatcher;
     String [] currency_titles;
+    String [] currency_symbols;
 
     public static ConversionFragment newInstance(String currency1, String currency2, Float exchange_rate,
-                             String crypto_symbol, String currency_symbol) {
+                             String crypto_symbol, String currency_symbol,
+                             String [] currency_titles, String [] currency_symbols) {
 
         Bundle args = new Bundle();
         args.putString(FIRST_CURRENCY, currency1);
@@ -51,6 +53,8 @@ public class ConversionFragment extends Fragment {
         args.putFloat(EXCHANGE_RATE, exchange_rate);
         args.putString(CRYPTO_SYMBOL, crypto_symbol);
         args.putString(CURRENCY_SYMBOL, currency_symbol);
+        args.putStringArray(TITLES, currency_titles);
+        args.putStringArray(CODES, currency_symbols);
 
         ConversionFragment fragment = new ConversionFragment();
         fragment.setArguments(args);
@@ -66,7 +70,7 @@ public class ConversionFragment extends Fragment {
             currency1 = data.getStringExtra(EXTRA_CURRENCY);
             for (int i = 0; i < currency_titles.length; i++)
                 if (currency1.equals(currency_titles[i])) {
-                    crypto_symbol = getResources().getStringArray(R.array.crypto_currencies_symbols)[i];
+                    crypto_symbol = currency_symbols[i];
                     break;
                 }
             String url = "https://min-api.cryptocompare.com/data/price?fsym=" + crypto_symbol +
@@ -102,6 +106,8 @@ public class ConversionFragment extends Fragment {
             exchange_rate = getArguments().getFloat(EXCHANGE_RATE);
             crypto_symbol = getArguments().getString(CRYPTO_SYMBOL);
             curr_symbol = getArguments().getString(CURRENCY_SYMBOL);
+            currency_titles = getArguments().getStringArray(TITLES);
+            currency_symbols = getArguments().getStringArray(CODES);
         }
 
         currency1EditText.setText(String.valueOf(1));
@@ -165,7 +171,6 @@ public class ConversionFragment extends Fragment {
 
             case R.id.menu_item_edit_currency:
 
-                currency_titles = getResources().getStringArray(R.array.crypto_currencies);
                 FragmentManager fm = getFragmentManager();
                 BaseCurrencyDialogFragment dialog = BaseCurrencyDialogFragment.newInstance(currency_titles);
                 // create connection btn fragments by making CryptoCurrencyFragment
