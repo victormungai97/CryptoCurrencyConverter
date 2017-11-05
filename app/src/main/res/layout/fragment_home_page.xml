@@ -99,6 +99,7 @@
                     android:layout_width="@dimen/card_home_linear_layout_width"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:id="@+id/home_fragment_currency_icon"
                     android:contentDescription="@string/currency_description" />
 
                 <TextView
