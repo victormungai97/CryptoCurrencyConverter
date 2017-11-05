@@ -1,25 +1,22 @@
 package com.example.cryptocurrencyconverter.others;
 
 import android.app.Activity;
-import android.content.Context;
-import android.graphics.Point;
 import android.os.Handler;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cryptocurrencyconverter.R;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
 
 import java.util.List;
 import java.util.Timer;
@@ -35,11 +32,10 @@ import static com.example.cryptocurrencyconverter.others.Others.Constants.*;
  * Courtesy of the http://www.theappguruz.com/blog/learn-recyclerview-with-an-example-in-android
  */
 
-public class CurrencyGridLayoutAdapter extends RecyclerViewAdapter {
+public class CurrencyGridLayoutAdapter extends RecyclerViewAdapter implements View.OnClickListener{
 
     private Activity activity;
     private List<Currency> currencies;
-    private int screenWidth;
     private Timer timer;
     private OnBottomReachedListener onBottomReachedListener;
 
@@ -47,13 +43,6 @@ public class CurrencyGridLayoutAdapter extends RecyclerViewAdapter {
         this.activity = activity;
         this.currencies = currencies;
         this.timer = timer;
-        // get size of screen display using WindowManager and Point object class
-        WindowManager wm = (WindowManager) activity.getSystemService(Context.WINDOW_SERVICE);
-        assert wm != null;
-        Display display = wm.getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        screenWidth = size.x;
     }
 
     public void setCurrencies(List<Currency> currencies) {
@@ -96,8 +85,8 @@ public class CurrencyGridLayoutAdapter extends RecyclerViewAdapter {
         myHolder.currency_title.setTextColor(activity.getResources().getColor(R.color.black));
         String exchange = (currency.getExchange() != null) ? currency.getExchange() : activity.getString(R.string.exchange_rate);
         myHolder.currency_exchange.setText(exchange);
-        loadPictureToImageView(myHolder.currency_image, currency.getThumbnail(), R.drawable.money_4);
-        loadPictureToImageView(myHolder.currency_symbol, currency.getIcon(), R.drawable.icons_general_note);
+        loadPictureToImageView(myHolder.currency_image, currency.getThumbnail(), R.drawable.money_4, false);
+        loadPictureToImageView(myHolder.currency_symbol, currency.getIcon(), R.drawable.icons_general_note, true);
 
         final String id = (!currency.getID().equals("")) ? currency.getID() : "";
         final String url = "https://min-api.cryptocompare.com/data/price?fsym=" + getCryptoSymbol() +
@@ -126,6 +115,10 @@ public class CurrencyGridLayoutAdapter extends RecyclerViewAdapter {
         if (currency.getID().equals("")) {
             myHolder.currency_overflow.setVisibility(View.GONE);
             myHolder.currency_exchange.setText(activity.getString(R.string.exchange_rate));
+            myHolder.currency_image.setOnClickListener(this);
+            myHolder.currency_exchange.setOnClickListener(this);
+            myHolder.currency_title.setOnClickListener(this);
+            myHolder.currency_symbol.setOnClickListener(this);
         }
 
         // click listener for overflow menu
@@ -158,19 +151,26 @@ public class CurrencyGridLayoutAdapter extends RecyclerViewAdapter {
         popup.show();
     }
 
-    private void loadPictureToImageView(ImageView view, int thumbnail, int placeholder) {
+    /*
+     * Method to successfully load image to view with right scale
+     */
+    private void loadPictureToImageView(ImageView view, int thumbnail, int placeholder, boolean icon) {
         try {
-            Picasso.with(activity)
+            RequestCreator creator = Picasso.with(activity)
                     .load(thumbnail)
                     .placeholder(placeholder)
-                    .error(placeholder)
-                    .resize(screenWidth / 2, 300)
-                    .centerCrop()
-                    .into(view);
+                    .error(placeholder);
+            if (icon) creator.fit().centerInside().into(view);
+            else creator.fit().into(view);
         } catch (Exception ex) {
             Log.e("PICTURES "+ERROR, "Something went wrong");
             ex.printStackTrace();
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+        Toast.makeText(activity, "Add currency", Toast.LENGTH_SHORT).show();
     }
 
     public class Holder extends RecycleViewHolder {

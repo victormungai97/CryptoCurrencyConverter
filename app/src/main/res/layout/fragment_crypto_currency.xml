@@ -51,7 +51,6 @@
                         android:layout_height="match_parent"
                         android:contentDescription="@string/backdrop_description"
                         android:fitsSystemWindows="true"
-                        android:scaleType="centerCrop"
                         app:layout_collapseMode="parallax" />
 
                     <LinearLayout

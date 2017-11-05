@@ -53,14 +53,21 @@ public class BaseCurrencyDialogFragment extends GeneralDialogFragment {
         // set up adapter for given custom row layout
         ArrayList<BaseCurrencyData> list = new ArrayList<>();
         // set currency symbols and images based on available choice
+        String currency_replacement = "";
         for (String currency_title : currency_titles) {
             if (currency_title.contains(" "))
-                currency_title = currency_title.replace(" ", "_");
+                // this is used because conventional currencies are two-worded
+                // while their icons are one compound joined by hyphens word
+                currency_replacement = currency_title.replace(" ", "_");
             list.add(new BaseCurrencyData(currency_title,
                     activity.getResources()
-                            .getIdentifier("icons_" + currency_title.toLowerCase(),
+                            .getIdentifier("icons_" +
+                                    // get icons of currency based on their name
+                                    (currency_replacement.equals("") ? currency_title.toLowerCase() :
+                                            currency_replacement.toLowerCase()),
                                     "drawable",
                                     activity.getPackageName())));
+            currency_replacement = "";
         }
         SpinnerAdapter adapter = new SpinnerAdapter(activity,
                 R.layout.row, R.id.base_currency_text, list);

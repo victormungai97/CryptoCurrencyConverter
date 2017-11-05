@@ -45,6 +45,8 @@ public class Others {
                 R.drawable.monero, // monero
                 R.drawable.nem, // NEM
                 R.drawable.dash, // DASH
+                R.drawable.decred, // Decred
+                R.drawable.siacoin, // Siacoin
         };
 
         // array of resIds of icons of currencies
@@ -81,6 +83,8 @@ public class Others {
                 R.drawable.icons_monero, // 5
                 R.drawable.icons_nem, // 6
                 R.drawable.icons_dash, // 7
+                R.drawable.icons_decred, // 8
+                R.drawable.icons_siacoin, // 9
         };
     }
 
