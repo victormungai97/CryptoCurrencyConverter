@@ -342,8 +342,6 @@ public abstract class GeneralCurrencyFragment extends Fragment {
         // set image for crypto currency to image view in collapsing toolbar
         Picasso.with(getContext())
                 .load(image_res)
-                .resize(300, 300)
-                .centerInside()
                 .into((ImageView) view.findViewById(R.id.backdrop));
         Log.e(TAG, "Symbol -> " + cryptoSymbol);
     }

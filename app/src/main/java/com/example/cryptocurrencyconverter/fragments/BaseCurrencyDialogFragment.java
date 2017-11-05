@@ -40,7 +40,7 @@ public class BaseCurrencyDialogFragment extends GeneralDialogFragment {
     }
 
     public BaseCurrencyDialogFragment() {
-        super.alertDialogLayout = R.layout.fragment_base_currency_chooser;
+        super.alertDialogLayout = R.layout.dialog_base_currency_chooser;
     }
 
     @Override
