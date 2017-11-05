@@ -3,6 +3,9 @@
     <string name="app_intro">App Intro</string>
     <string name="action_change_background">Change currency image</string>
     <string name="action_remove_currency">Remove currency</string>
+    <string name="base_currency">Base currency</string>
+    <string name="digital_currency_price">Price</string>
+    <string name="digital_currency_volume">Volume traded</string>
     <string name="currency_description">This is a currency</string>
     <string name="menu_description">This is a overflow menu button</string>
     <string name="backdrop_title">Currency Conversion</string>

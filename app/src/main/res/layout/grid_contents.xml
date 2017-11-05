@@ -28,8 +28,7 @@
                 android:layout_margin="@dimen/card_currency_image_margin"
                 android:id="@+id/currency_image_view"
                 android:contentDescription="@string/currency_description"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:scaleType="fitXY" />
+                android:background="?attr/selectableItemBackgroundBorderless" />
 
             <RelativeLayout
                 android:id="@+id/currency_relative_layout1"
@@ -61,26 +60,26 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="@dimen/card_currency_title_view_padding"
+                android:layout_marginRight="@dimen/card_currency_title_view_padding"
                 android:layout_below="@id/currency_relative_layout1">
 
                 <ImageView
                     android:id="@+id/currency_symbol"
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
+                    android:layout_width="@dimen/card_currency_linear_layout1_width"
+                    android:layout_height="@dimen/card_currency_overflow_height"
                     android:layout_weight="1"
                     android:contentDescription="@string/currency_description"
                     />
 
                 <TextView
                     android:id="@+id/currency_exchange_rate"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/card_currency_linear_layout1_width"
                     android:layout_height="wrap_content"
                     android:layout_weight="9"
-                    android:padding="7.5dp"
+                    android:padding="@dimen/card_currency_overflow_padding"
                     android:textStyle="bold|italic"
-                    android:textSize="12sp" />
+                    android:textSize="@dimen/card_currency_exchange_rate_text_size" />
 
             </LinearLayout>
 

@@ -9,30 +9,20 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.cryptocurrencyconverter.R;
-import com.example.cryptocurrencyconverter.activities.ConventionalCurrencyActivity;
-import com.example.cryptocurrencyconverter.activities.CryptoCurrencyActivity;
-import com.example.cryptocurrencyconverter.activities.DigitalCurrencyActivity;
 import com.example.cryptocurrencyconverter.others.Currency;
 import com.example.cryptocurrencyconverter.others.CurrencyGridLayoutAdapter;
-import com.example.cryptocurrencyconverter.others.OnBottomReachedListener;
 import com.example.cryptocurrencyconverter.others.Permissions;
 import com.squareup.picasso.Picasso;
 
@@ -53,7 +43,7 @@ import static com.example.cryptocurrencyconverter.others.Others.Currencies.*;
  * (https://www.behance.net/JunikStudio or http://www.junikstudio.com)
  */
 
-public abstract class GeneralCurrencyFragment extends Fragment {
+public abstract class GeneralCurrencyFragment extends GeneralFragmentClass {
     static String cryptoSymbol;
     static String currency1;
 
@@ -62,9 +52,6 @@ public abstract class GeneralCurrencyFragment extends Fragment {
     CurrencyGridLayoutAdapter currencyGridLayoutAdapter;
     RecyclerView recyclerViewMain;
     Parcelable mListState;
-    LinearLayout menu_layout;
-    ImageView home_button, currency_button, digital_button, crypto_currency_button;
-    View view;
     CoordinatorLayout coordinatorLayout;
     Timer timer;
     int image_res;
@@ -124,20 +111,7 @@ public abstract class GeneralCurrencyFragment extends Fragment {
         dialog.show(fm, null);
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        // Inflate layout
-        view = inflater.inflate(R.layout.fragment_crypto_currency, container,false);
-
-        // inflate widgets
-        initCollapsingToolbar();
-        menu_layout = view.findViewById(R.id.menu_linear_layout);
-        home_button = view.findViewById(R.id.menu_home_image_button);
-        currency_button = view.findViewById(R.id.menu_currency_image_button);
-        digital_button = view.findViewById(R.id.menu_digital_currency_image_button);
-        crypto_currency_button = view.findViewById(R.id.menu_crypto_to_currency_image_button);
+    public void initializeWidgets() {
         recyclerViewMain = view.findViewById(R.id.card_recycler_view);
         coordinatorLayout = view.findViewById(R.id.fragment_coordinator_layout);
 
@@ -146,17 +120,7 @@ public abstract class GeneralCurrencyFragment extends Fragment {
         setLayoutManager();
 
         // check if last element reached
-        currencyGridLayoutAdapter.setOnBottomReachedListener(new OnBottomReachedListener() {
-            @Override
-            public void onBottomReached(int position) {
-                menu_layout.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onBottomNotReached(int position) {
-                menu_layout.setVisibility(View.VISIBLE);
-            }
-        });
+        currencyGridLayoutAdapter.setOnBottomReachedListener(this);
 
         if (!isNetworkAvailable(getContext())){
             Snackbar snackbar = Snackbar
@@ -182,35 +146,6 @@ public abstract class GeneralCurrencyFragment extends Fragment {
         }
 
         initializeCurrencies();
-
-        // start fragment for converting between digital and conventional currencies
-        crypto_currency_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), CryptoCurrencyActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        // start fragment for conversion between conventional currencies
-        currency_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), ConventionalCurrencyActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        // start fragment for conversion between digital currencies
-        digital_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), DigitalCurrencyActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        return view;
     }
 
     @Override
@@ -245,38 +180,6 @@ public abstract class GeneralCurrencyFragment extends Fragment {
 
     public static String getCryptoSymbol() {
         return cryptoSymbol;
-    }
-
-    /**
-     * Initializing collapsing toolbar
-     * Will show and hide the toolbar title on scroll
-     */
-    private void initCollapsingToolbar() {
-        final CollapsingToolbarLayout collapsingToolbar = view.findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle(" ");
-        AppBarLayout appBarLayout = view.findViewById(R.id.appbar);
-        appBarLayout.setExpanded(true);
-
-        // hiding & showing the title when toolbar expanded & collapsed
-        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            boolean isShow = false;
-            int scrollRange = -1;
-
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (scrollRange == -1) {
-                    scrollRange = appBarLayout.getTotalScrollRange();
-                }
-                if (scrollRange + verticalOffset == 0) {
-                    collapsingToolbar.setTitle(getString(R.string.backdrop_title));
-                    collapsingToolbar.setCollapsedTitleTextColor(getResources().getColor(R.color.black));
-                    isShow = true;
-                } else if (isShow) {
-                    collapsingToolbar.setTitle(" ");
-                    isShow = false;
-                }
-            }
-        });
     }
 
     /**

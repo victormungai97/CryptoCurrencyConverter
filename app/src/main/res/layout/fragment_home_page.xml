@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card = "http://schemas.android.com/apk/res-auto"
+    android:id="@+id/home_fragment_coordinator_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/home_fragment_card_view"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/card_margin"
+        card:cardCornerRadius="@dimen/card_corner_radius">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/card_currency_image_height"
+                android:id="@+id/home_fragment_digital_currency_image"
+                android:contentDescription="@string/currency_description"
+                android:background="?attr/selectableItemBackgroundBorderless" />
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/home_fragment_linear_layout1"
+                android:layout_below="@id/home_fragment_digital_currency_image">
+                
+                <TextView
+                    android:layout_width="@dimen/card_home_linear_layout_width"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/base_currency"
+                    android:textAlignment="center"
+                    android:textStyle="bold|italic"
+                    android:textColor="@color/black"
+                    android:id="@+id/home_fragment_base_currency_title_view"
+                    android:textSize="@dimen/card_home_base_currency_title_text_size"
+                    android:padding="@dimen/card_currency_title_view_padding"/>
+
+                <TextView
+                    android:layout_width="@dimen/card_home_linear_layout_width"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/home_fragment_base_currency_text_view"/>
+                
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/home_fragment_linear_layout2"
+                android:layout_below="@id/home_fragment_linear_layout1">
+
+                <TextView
+                    android:layout_width="@dimen/card_home_linear_layout_width"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/digital_currency_price"
+                    android:textAlignment="center"
+                    android:textStyle="bold|italic"
+                    android:textColor="@color/black"
+                    android:id="@+id/home_fragment_price_currency_title_view"
+                    android:textSize="@dimen/card_home_base_currency_title_text_size"
+                    android:padding="@dimen/card_currency_title_view_padding"/>
+
+                <TextView
+                    android:layout_width="@dimen/card_home_linear_layout_width"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/home_fragment_price_currency_text_view"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/home_fragment_linear_layout3"
+                android:layout_below="@id/home_fragment_linear_layout2">
+
+                <TextView
+                    android:layout_width="@dimen/card_home_linear_layout_width"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/digital_currency_volume"
+                    android:textAlignment="center"
+                    android:textStyle="bold|italic"
+                    android:textColor="@color/black"
+                    android:id="@+id/home_fragment_volume_currency_title_view"
+                    android:textSize="@dimen/card_home_base_currency_title_text_size"
+                    android:padding="@dimen/card_currency_title_view_padding"/>
+
+                <ImageView
+                    android:layout_width="@dimen/card_home_linear_layout_width"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/currency_description" />
+
+                <TextView
+                    android:layout_width="@dimen/card_home_linear_layout_width"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:id="@+id/home_fragment_volume_currency_text_view"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</android.support.design.widget.CoordinatorLayout>

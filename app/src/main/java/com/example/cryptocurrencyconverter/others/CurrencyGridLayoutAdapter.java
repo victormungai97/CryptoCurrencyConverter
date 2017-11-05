@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.example.cryptocurrencyconverter.R;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.RequestCreator;
 
 import java.util.List;
 import java.util.Timer;
@@ -85,8 +84,8 @@ public class CurrencyGridLayoutAdapter extends RecyclerViewAdapter implements Vi
         myHolder.currency_title.setTextColor(activity.getResources().getColor(R.color.black));
         String exchange = (currency.getExchange() != null) ? currency.getExchange() : activity.getString(R.string.exchange_rate);
         myHolder.currency_exchange.setText(exchange);
-        loadPictureToImageView(myHolder.currency_image, currency.getThumbnail(), R.drawable.money_4, false);
-        loadPictureToImageView(myHolder.currency_symbol, currency.getIcon(), R.drawable.icons_general_note, true);
+        loadPictureToImageView(myHolder.currency_image, currency.getThumbnail(), R.drawable.money_4);
+        loadPictureToImageView(myHolder.currency_symbol, currency.getIcon(), R.drawable.icons_general_note);
 
         final String id = (!currency.getID().equals("")) ? currency.getID() : "";
         final String url = "https://min-api.cryptocompare.com/data/price?fsym=" + getCryptoSymbol() +
@@ -135,7 +134,6 @@ public class CurrencyGridLayoutAdapter extends RecyclerViewAdapter implements Vi
      */
     @Override
     public int getItemCount() {
-        Log.e("CURRENCIES "  + TAG, "No. of currencies -> " + currencies.size());
         return currencies.size();
     }
 
@@ -154,14 +152,12 @@ public class CurrencyGridLayoutAdapter extends RecyclerViewAdapter implements Vi
     /*
      * Method to successfully load image to view with right scale
      */
-    private void loadPictureToImageView(ImageView view, int thumbnail, int placeholder, boolean icon) {
+    private void loadPictureToImageView(ImageView view, int thumbnail, int placeholder) {
         try {
-            RequestCreator creator = Picasso.with(activity)
+            Picasso.with(activity)
                     .load(thumbnail)
                     .placeholder(placeholder)
-                    .error(placeholder);
-            if (icon) creator.fit().centerInside().into(view);
-            else creator.fit().into(view);
+                    .error(placeholder).fit().centerInside().into(view);
         } catch (Exception ex) {
             Log.e("PICTURES "+ERROR, "Something went wrong");
             ex.printStackTrace();

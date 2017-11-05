@@ -30,6 +30,10 @@
     <dimen name="card_currency_overflow_width">20dp</dimen>
     <dimen name="card_currency_overflow_height">30dp</dimen>
     <dimen name="card_currency_overflow_padding">7.5dp</dimen>
+    <dimen name="card_currency_exchange_rate_text_size">12sp</dimen>
+    <dimen name="card_currency_linear_layout1_width">0dp</dimen>
+    <dimen name="card_home_linear_layout_width">0dp</dimen>
+    <dimen name="card_home_base_currency_title_text_size">16sp</dimen>
     <dimen name="row_spacing">10dp</dimen>
 
 </resources>
